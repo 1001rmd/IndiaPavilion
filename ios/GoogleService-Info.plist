@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>563578444312-8irq94gvmta9a2dntbf5gc41lhhb4j9f.apps.googleusercontent.com</string>
+	<string>308571456696-qmake82g61b9ebuup8911hios13dad7b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.563578444312-8irq94gvmta9a2dntbf5gc41lhhb4j9f</string>
+	<string>com.googleusercontent.apps.308571456696-qmake82g61b9ebuup8911hios13dad7b</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCRd2jDfu-tMsrBVXlHaOA75ehm6Tc0430</string>
+	<string>AIzaSyAoCK0y7GCdUa_BVyJoOrHF11bHXw57-mg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>563578444312</string>
+	<string>308571456696</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>ninja.s3c.hewwoworld</string>
+	<string>com.IP.mobile.IndiaPavilion</string>
 	<key>PROJECT_ID</key>
-	<string>hewwoworld-b5c44</string>
+	<string>ipmobileapp</string>
 	<key>STORAGE_BUCKET</key>
-	<string>hewwoworld-b5c44.appspot.com</string>
+	<string>ipmobileapp.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:563578444312:ios:a34ca870ba1dc61a</string>
+	<string>1:308571456696:ios:a5ef0d5a8c5788ca</string>
 	<key>DATABASE_URL</key>
-	<string>https://hewwoworld-b5c44.firebaseio.com</string>
+	<string>https://ipmobileapp.firebaseio.com</string>
 </dict>
 </plist>
