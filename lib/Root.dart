@@ -39,6 +39,7 @@ class _RootState extends State<Root>{
           loggedOut: _loggedOut
         );
     }
+    return null;
   }
 
   void _signedIn(){

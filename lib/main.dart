@@ -11,8 +11,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: const Color(0xFF530B51),
-        accentColor: const Color(0xFF58CDCD)
+        accentColor: const Color(0xFF58CDCD),
+
       ),
+
       home: Root(),
     );
   }
