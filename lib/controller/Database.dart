@@ -1,11 +1,12 @@
-import "package:cloud_firestore/cloud_firestore.dart";
-import "../model/MenuItem.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../model/MenuItem.dart';
+import '../model/Menu.dart';
 import 'dart:developer' as developer;
 
 class Database {
 
 
-    static List<MenuItem> getMenu() {
+    static Future<Menu> getMenu() async{
       List<MenuItem> theList = new List();
 
       Firestore.instance.collection('menu').getDocuments()
@@ -13,10 +14,12 @@ class Database {
           docs.documents.forEach((doc) =>
               theList.add(new MenuItem(doc.data))
           )
+
+
       );
 
       developer.log(theList.length.toString());
-      return theList;
+      return new Menu(theList);
     }
 
 }
