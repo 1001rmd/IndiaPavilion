@@ -19,9 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^0.3.4 # firebase core dep
-  firebase_auth: ^0.8.4 # firebase auth dep
-  cloud_firestore: ^0.9.0 # firebase database dep
+  firebase_core: ^0.4.0+1 # firebase core dep
+  firebase_auth: ^0.11.1 # firebase auth dep
+  cloud_firestore: ^0.12.7 # firebase database dep
   carousel_slider: ^1.3.0
   validators: ^2.0.0
 

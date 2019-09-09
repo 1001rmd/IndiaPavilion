@@ -24,6 +24,7 @@ class MenuItem extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return new Text(name);
+    //return new Column()
   }
 
 }
