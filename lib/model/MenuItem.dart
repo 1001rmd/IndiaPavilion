@@ -67,7 +67,7 @@ class MenuItem extends StatelessWidget{
                       color:Colors.grey
                   ),)
 
-<<<<<<< Updated upstream
+
                 ],
               ),
             )
@@ -77,18 +77,5 @@ class MenuItem extends StatelessWidget{
     );
 
   }
-=======
 
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
-
-
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
-
-
->>>>>>> Stashed changes
 }
