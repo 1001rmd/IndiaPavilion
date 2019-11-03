@@ -5,7 +5,8 @@ import 'IPAppBar.dart';
 import '../model/Menu.dart';
 import '../model/Category.dart';
 import '../model/MenuItem.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import '../view/HomeSlideshow.dart';
+
 
 //This class is the entirety of the home page
 class HomePage extends StatelessWidget {
@@ -70,19 +71,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
           child: new Column(
               children: <Widget>[
 
-                /*new CarouselSlider(
-                  items: buildPhotoList(),
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 1.0,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  pauseAutoPlayOnTouch: Duration(seconds: 10),
-                  enlargeCenterPage: false,
-                  scrollDirection: Axis.horizontal,),*/
+                //new HomeSlideshow(),
 
                 new Container(
                     child: new FutureBuilder(
@@ -187,23 +176,52 @@ class _MenuDisplayState extends State<MenuDisplay> {
     //Items
     dataList.forEach((item) {
       widgetList.add(
-          new Container(
-              child: new FlatButton(
-                  child: Text(item.name, style: new TextStyle(fontSize: 20.0)),
-                  onPressed: () => {},
-                  focusColor: Color(0xFFDDDDDD)
-              ),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(border: Border.all(color: Color(0xFFDDDDDD))),
-              //padding: EdgeInsets.fromLTRB(20.0, 20.0, 0.0, 20.0),
-              height: 60.0
-          )
+          buildItemCard(item)
       );
     });
 
     return new Column(children: widgetList);
 
   }
+
+
+  Widget buildItemCard(MenuItem item){
+
+    return Container(
+      decoration: BoxDecoration(border: Border(
+          top: BorderSide(width: 1.0, color: Color(0xFFDDDDDD)),
+          bottom: BorderSide(width: 1.0, color: Color(0xFFDDDDDD))
+      )),
+      child: ListTile(
+            contentPadding: EdgeInsets.fromLTRB(15, 7, 15, 7),
+            title: Text(item.name,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold
+              ),),
+            subtitle:Text(item.description,
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  color:Colors.grey
+              ),),
+            trailing: Text(item.price.toString(),
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black
+              ),)
+        )
+    );
+
+
+  }
+
 
 }
 
