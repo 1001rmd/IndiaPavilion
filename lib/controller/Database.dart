@@ -1,33 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/MenuItem.dart';
-import '../model/Menu.dart';
-import 'dart:developer' as developer;
 
 class Database {
 
-    //Queries Firebase to get the menu
-    static Future<Menu> getMenu() async{
-       return new Menu.general();
+    static Future<List<String>> getCategories() async{
+      List<String> categories = new List();
 
-      /*List<MenuItem> theList = new List();
-
-       QuerySnapshot qs = await Firestore.instance.collection('menu').getDocuments();
-       qs.documents.forEach((doc){
-         theList.add(new MenuItem(doc.data));
-         developer.log(theList.length.toString());
-       });
-       return new Menu(theList);*/
+      QuerySnapshot qs = await Firestore.instance.collection('menu').getDocuments();
+      qs.documents.sort((a, b) {
+        return a.data['Order'].compareTo(b.data['Order']);
+      });
+      qs.documents.forEach((doc){
+        categories.add(doc.data['Name']);
+      });
+      
+      return categories;
     }
 
     //Queries Firebase to get a category of Menu Items
-    static Future<List<MenuItem>> getCategory(String name) async{
-      List<MenuItem> theList = new List();
+    static Future<List<MenuItem>> getItems(String category) async{
+      List<MenuItem> items = new List();
 
-      QuerySnapshot qs = await Firestore.instance.collection('menu').where('category', isEqualTo: name).getDocuments();
+      QuerySnapshot qs = await Firestore.instance.collection('menu').document(category).collection('items').getDocuments();
       qs.documents.forEach((doc){
-        theList.add(new MenuItem(doc.data));
+        items.add(new MenuItem(doc.data));
       });
-      return theList;
+      return items;
     }
 
 }

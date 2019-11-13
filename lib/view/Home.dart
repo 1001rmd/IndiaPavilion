@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../controller/Auth.dart';
 import '../controller/Database.dart';
 import 'IPAppBar.dart';
-import '../model/Menu.dart';
-import '../model/Category.dart';
 import '../model/MenuItem.dart';
 import '../view/HomeSlideshow.dart';
 
@@ -71,13 +69,13 @@ class _MenuDisplayState extends State<MenuDisplay> {
           child: new Column(
               children: <Widget>[
 
-                //new HomeSlideshow(),
+                new HomeSlideshow(),
 
                 new Container(
                     child: new FutureBuilder(
-                        future: Database.getMenu(),
+                        future: Database.getCategories(),
                         builder: (BuildContext context,
-                            AsyncSnapshot<Menu> snapshot) {
+                            AsyncSnapshot<List<String>> snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
                               return Text('Loading Menu');
@@ -86,7 +84,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
                               if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
                               } else {
-                                return buildCategoryList(snapshot.data.getCategories());
+                                return buildCategoryList(snapshot.data);
                               }
                               break;
 
@@ -102,15 +100,15 @@ class _MenuDisplayState extends State<MenuDisplay> {
     );
   }
 
-  Widget buildCategoryList(List<Category> dataList) {
+  Widget buildCategoryList(List<String> dataList) {
     List<Widget> widgetList = new List();
 
     dataList.forEach((category) {
       widgetList.add(
           new Container(
             child: new FlatButton(
-              child: Text(category.getName(), style: new TextStyle(fontSize: 20.0)),
-              onPressed: () => changeState(category.getName()),
+              child: Text(category, style: new TextStyle(fontSize: 20.0)),
+              onPressed: () => changeState(category),
                 focusColor: Color(0xFFDDDDDD)
             ),
             width: MediaQuery.of(context).size.width,
@@ -129,7 +127,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
 
     return new SingleChildScrollView(
          child: new FutureBuilder(
-             future: Database.getCategory(category),
+             future: Database.getItems(category),
              builder: (BuildContext context,
                  AsyncSnapshot<List<MenuItem>> snapshot) {
                switch (snapshot.connectionState) {
@@ -208,7 +206,8 @@ class _MenuDisplayState extends State<MenuDisplay> {
                   fontWeight: FontWeight.bold,
                   color:Colors.grey
               ),),
-            trailing: Text(item.price.toString(),
+            trailing: Text(("\$" + item.price.toString()),
+              //TODO: Format price to have 2 0's
               textAlign: TextAlign.end,
               style: TextStyle(
                   fontSize: 20.0,
