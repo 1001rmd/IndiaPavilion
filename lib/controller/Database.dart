@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/MenuItem.dart';
+import 'dart:developer' as developer;
 
 class Database {
 
@@ -19,6 +20,7 @@ class Database {
 
     //Queries Firebase to get a category of Menu Items
     static Future<List<MenuItem>> getItems(String category) async{
+      developer.log('Calling database for: ' + category);
       List<MenuItem> items = new List();
 
       QuerySnapshot qs = await Firestore.instance.collection('menu').document(category).collection('items').getDocuments();

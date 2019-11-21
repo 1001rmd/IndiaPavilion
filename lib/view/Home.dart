@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../controller/Auth.dart';
-import '../controller/Database.dart';
+import '../controller/Menu.dart';
 import 'IPAppBar.dart';
 import '../model/MenuItem.dart';
 import '../view/HomeSlideshow.dart';
@@ -73,7 +73,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
 
                 new Container(
                     child: new FutureBuilder(
-                        future: Database.getCategories(),
+                        future: Menu.getMenu().getCategories(),
                         builder: (BuildContext context,
                             AsyncSnapshot<List<String>> snapshot) {
                           switch (snapshot.connectionState) {
@@ -127,7 +127,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
 
     return new SingleChildScrollView(
          child: new FutureBuilder(
-             future: Database.getItems(category),
+             future: Menu.getMenu().getItems(category),
              builder: (BuildContext context,
                  AsyncSnapshot<List<MenuItem>> snapshot) {
                switch (snapshot.connectionState) {
