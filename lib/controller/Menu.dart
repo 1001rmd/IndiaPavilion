@@ -3,10 +3,6 @@ import 'Database.dart';
 
 class Menu{
 
-  //TODO: may need to clear menu data
-  //I'm hoping the data with clear automatically on app start
-
-
   static Menu _menu;
   static List<String> categoryCache;
   static Map<String, List<MenuItem>> itemCache;

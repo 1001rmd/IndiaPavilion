@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../controller/Auth.dart';
 import '../controller/Menu.dart';
+import '../controller/Cart.dart';
 import 'IPAppBar.dart';
 import '../model/MenuItem.dart';
+import '../view/OrderOption.dart';
 import '../view/HomeSlideshow.dart';
+import 'dart:developer' as developer;
 
 
 //This class is the entirety of the home page
@@ -31,9 +34,7 @@ class HomePage extends StatelessWidget {
 class MenuDisplay extends StatefulWidget {
 
   @override
-  State<StatefulWidget> createState() {
-    return new _MenuDisplayState();
-  }
+  State<StatefulWidget> createState() => new _MenuDisplayState();
 
 }
 
@@ -191,6 +192,8 @@ class _MenuDisplayState extends State<MenuDisplay> {
           bottom: BorderSide(width: 1.0, color: Color(0xFFDDDDDD))
       )),
       child: ListTile(
+            enabled: true,
+            onTap: () => addToCart(item),
             contentPadding: EdgeInsets.fromLTRB(15, 7, 15, 7),
             title: Text(item.name,
               textAlign: TextAlign.start,
@@ -219,6 +222,13 @@ class _MenuDisplayState extends State<MenuDisplay> {
     );
 
 
+  }
+
+  addToCart(MenuItem item){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => OrderOption(item)
+    );
   }
 
 

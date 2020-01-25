@@ -14,9 +14,8 @@ class MenuItem{
     category = data["category"];
     description = data["description"];
     price = data["price"];
-    spiceLvl = data["spiceLvl"];
+    spiceLvl = data["spicelvl"];
     favorite = data["favorite"];
-
 
   }
 
