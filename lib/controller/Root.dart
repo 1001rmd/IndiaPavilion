@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../view/Login.dart';
+import '../widget/Login.dart';
 import 'Auth.dart';
-import '../view/Home.dart';
+import '../widget/Home.dart';
 
 class Root extends StatefulWidget{
 

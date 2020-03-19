@@ -1,30 +1,32 @@
 import '../model/OrderItem.dart';
+import 'dart:async';
 import 'dart:developer' as developer;
 
 class Cart{
   
-  static final Cart _instance =  Cart._create();
-  
   static final double _TAX_RATE = 0.06;
-  static List<OrderItem> items;
-  static double price;
-  static double tax;
-  static double total;
+  List<OrderItem> _items;
+  double price;
+  double tax;
+  double total;
 
-  factory Cart() {
-    return _instance;
+
+
+  Cart() {
+    _cartEventController.stream.listen(_mapEventToState);
   }
-  
-  Cart._create(){
-    items = new List<OrderItem>();
-    price = 0;
-    tax = 0;
-    total = 0;
+
+  void _mapEventToState(CartAction event){
+
   }
-  
+
+  double getPrice(){
+    return price;
+  }
+
   void addItem(OrderItem item){
     
-    items.add(item);
+    _items.add(item);
     _calculatePrice();
     printCart();
   }
@@ -32,7 +34,7 @@ class Cart{
   void _calculatePrice(){
 
     price = 0;
-    items.forEach((OrderItem item){
+    _items.forEach((OrderItem item){
       price += item.price;
     });
 
@@ -42,12 +44,12 @@ class Cart{
 
   void removeItem(OrderItem item){
     
-    items.remove(item);
+    _items.remove(item);
     _calculatePrice();
   }
 
   void clearCart(){
-    items = new List<OrderItem>();
+    _items = new List<OrderItem>();
   }
   
 
@@ -55,11 +57,29 @@ class Cart{
     //TODO write cart to database
   }
 
+  void dispose(){
+    _itemListController.close();
+    _cartEventController.close();
+  }
+
   void printCart(){
-    items.forEach((i){
+    _items.forEach((i){
       developer.log(i.name);
     });
   }
 
 
 }
+
+abstract class CartAction {}
+
+class AddToCart extends CartAction {
+  OrderItem item;
+  AddToCart(OrderItem item){
+    this.item = item;
+  }
+}
+
+class RemoveFromCart extends CartAction{}
+
+class ClearCart extends CartAction {}

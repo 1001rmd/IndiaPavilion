@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../controller/Auth.dart';
-import '../controller/Menu.dart';
-import '../controller/Cart.dart';
+import 'package:india_pavilion/controller/Auth.dart';
+import 'package:india_pavilion/controller/Menu.dart';
+import 'package:india_pavilion/controller/Cart.dart';
+import 'package:india_pavilion/model/MenuItem.dart';
 import 'IPAppBar.dart';
-import '../model/MenuItem.dart';
-import '../view/OrderOption.dart';
-import '../view/HomeSlideshow.dart';
+import 'CartHeader.dart';
+import 'OrderOption.dart';
+import 'HomeSlideshow.dart';
 import 'dart:developer' as developer;
 
 
@@ -21,9 +22,11 @@ class HomePage extends StatelessWidget {
     return new Scaffold(
         appBar: new IPAppBar(context),
         drawer: new IPDrawer(loggedOut),
-
         //The body is a widget that changes based on if a category is selected
-        body: new MenuDisplay()
+        body: new MenuDisplay(),
+        //The footer displays cart information
+        bottomNavigationBar: CartHeader()
+
     );
   }
 
