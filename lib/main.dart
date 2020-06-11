@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'controller/Root.dart';
+import 'package:india_pavilion/controller/Root.dart';
+import 'package:india_pavilion/controller/StateContainer.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp(StateContainer(MyApp()));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -13,7 +14,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFF530B51),
         accentColor: const Color(0xFF58CDCD),
-
       ),
 
       home: Root(),
