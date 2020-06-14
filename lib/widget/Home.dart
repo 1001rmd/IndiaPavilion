@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../controller/Auth.dart';
-import '../controller/Menu.dart';
-import '../controller/Cart.dart';
+import 'package:india_pavilion/controller/Auth.dart';
+import 'package:india_pavilion/controller/Menu.dart';
+import 'package:india_pavilion/model/MenuItem.dart';
 import 'IPAppBar.dart';
-import '../model/MenuItem.dart';
-import '../view/OrderOption.dart';
-import '../view/HomeSlideshow.dart';
-import 'dart:developer' as developer;
+import 'CartBar.dart';
+import 'OrderOption.dart';
+import 'HomeSlideshow.dart';
 
 
 //This class is the entirety of the home page
@@ -21,9 +20,11 @@ class HomePage extends StatelessWidget {
     return new Scaffold(
         appBar: new IPAppBar(context),
         drawer: new IPDrawer(loggedOut),
-
         //The body is a widget that changes based on if a category is selected
-        body: new MenuDisplay()
+        body: new MenuDisplay(),
+        //The footer displays cart information
+        bottomNavigationBar: CartBar()
+
     );
   }
 
@@ -193,7 +194,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
       )),
       child: ListTile(
             enabled: true,
-            onTap: () => addToCart(item),
+            onTap: () => showItemDialog(item),
             contentPadding: EdgeInsets.fromLTRB(15, 7, 15, 7),
             title: Text(item.name,
               textAlign: TextAlign.start,
@@ -209,8 +210,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
                   fontWeight: FontWeight.bold,
                   color:Colors.grey
               ),),
-            trailing: Text(("\$" + item.price.toString()),
-              //TODO: Format price to have 2 0's
+            trailing: Text(("\$" + item.price.toStringAsFixed(2)),
               textAlign: TextAlign.end,
               style: TextStyle(
                   fontSize: 20.0,
@@ -224,7 +224,7 @@ class _MenuDisplayState extends State<MenuDisplay> {
 
   }
 
-  addToCart(MenuItem item){
+  showItemDialog(MenuItem item){
     showDialog(
       context: context,
       builder: (BuildContext context) => OrderOption(item)

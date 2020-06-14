@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../controller/Cart.dart';
-import '../model/MenuItem.dart';
-import '../model/OrderItem.dart';
+import 'package:india_pavilion/controller/StateContainer.dart';
+import 'package:india_pavilion/model/MenuItem.dart';
+import 'package:india_pavilion/model/OrderItem.dart';
 
 
 class OrderOption extends StatefulWidget {
@@ -20,7 +20,7 @@ class _ItemState extends State<OrderOption> {
   OrderItem oItem;
 
   //Styles & Dropdown list
-  static Color _textColor = Color(0xFFFFFFFF);
+  static Color _textColor = Color(0xFF000000);
   TextStyle _textStyle = TextStyle(
       fontFamily: 'sans-serif',
       fontSize: 24,
@@ -37,15 +37,15 @@ class _ItemState extends State<OrderOption> {
   List<DropdownMenuItem<String>> spiceLvls = [
     DropdownMenuItem(
         child: Text('Mild'),
-        value: 'mild'
+        value: 'Mild'
     ),
     DropdownMenuItem(
         child: Text('Medium'),
-        value: 'medium'
+        value: 'Medium'
     ),
     DropdownMenuItem(
         child: Text('Hot'),
-        value: 'hot'
+        value: 'Hot'
     ),
   ];
 
@@ -61,7 +61,7 @@ class _ItemState extends State<OrderOption> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Color(0xFF2E2E2E),
+      backgroundColor: Color(0xFFFFFFFF),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
       ),
@@ -102,12 +102,12 @@ class _ItemState extends State<OrderOption> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               FlatButton(
-                                child: Icon(Icons.remove, color: Colors.white),
+                                child: Icon(Icons.remove, color: _textColor),
                                 onPressed: _decrementQuantity,
                               ),
                               Text(oItem.quantity.toString(), style: _textStyle),
                               FlatButton(
-                                child: Icon(Icons.add, color: Colors.white),
+                                child: Icon(Icons.add, color: _textColor),
                                 onPressed: _incrementQuantity,
                               )
                             ],
@@ -159,11 +159,11 @@ class _ItemState extends State<OrderOption> {
             data: ThemeData(canvasColor: Theme.of(context).accentColor, hintColor: Colors.white),
             child: DropdownButton(
                 value: oItem.spiceLvl,
-                hint: Text('Choose one'),
+                hint: Text('Choose one', style: TextStyle(color: _textColor),),
                 items: spiceLvls,
                 onChanged: (value) => _updateSpice(value),
                 style: TextStyle(
-                  color: Colors.white,
+                  color: _textColor,
                 )
             )
           ),
@@ -203,7 +203,11 @@ class _ItemState extends State<OrderOption> {
   }
 
   void _addToCart(){
-    Cart().addItem(oItem);
+    if(widget.mItem.spiceLvl && oItem.spiceLvl == null){
+      oItem.spiceLvl = "Mild";
+    }
+
+    StateContainer.of(context).addCartItem(oItem);
     Navigator.pop(context);
   }
 

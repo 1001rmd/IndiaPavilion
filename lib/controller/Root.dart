@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../view/Login.dart';
+import '../widget/Login.dart';
 import 'Auth.dart';
-import '../view/Home.dart';
+import '../widget/Home.dart';
+import '../model/Cart.dart';
 
 class Root extends StatefulWidget{
 
@@ -15,12 +16,14 @@ class Root extends StatefulWidget{
 class _RootState extends State<Root>{
 
   AuthStatus authStatus = AuthStatus.loggedOut;
+  Cart cart;
 
   initState(){
     super.initState();
     widget.auth.currentUser().then((userID){
       setState(() {
         authStatus = userID == null ? AuthStatus.loggedOut : AuthStatus.singedIn;
+        cart = new Cart();
       });
     });
   }
@@ -34,7 +37,7 @@ class _RootState extends State<Root>{
             signedIn: _signedIn
         );
       case AuthStatus.singedIn:
-        return new HomePage(
+        return HomePage(
           auth: widget.auth,
           loggedOut: _loggedOut
         );
