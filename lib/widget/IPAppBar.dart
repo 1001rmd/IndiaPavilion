@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:india_pavilion/widget/Account.dart';
 
 //
 
@@ -57,7 +58,7 @@ class IPDrawer extends Drawer {
                                   color: const Color(0xFFFFFFFF),
                                   fontSize: 28))),
                       new FlatButton(
-                          onPressed: null,
+                          onPressed: () {this.showAccount(context);},
                           child: new Text('Account',
                               style: new TextStyle(
                                   color: const Color(0xFFFFFFFF),
@@ -81,5 +82,13 @@ class IPDrawer extends Drawer {
             ))
     );
   }
+
+  void showAccount(context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Account()),
+    );
+  }
+
 }
 

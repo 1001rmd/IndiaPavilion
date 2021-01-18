@@ -16,14 +16,12 @@ class Root extends StatefulWidget{
 class _RootState extends State<Root>{
 
   AuthStatus authStatus = AuthStatus.loggedOut;
-  Cart cart;
 
   initState(){
     super.initState();
     widget.auth.currentUser().then((userID){
       setState(() {
         authStatus = userID == null ? AuthStatus.loggedOut : AuthStatus.singedIn;
-        cart = new Cart();
       });
     });
   }

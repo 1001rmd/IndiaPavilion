@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:validators/sanitizers.dart';
 import 'package:validators/validators.dart';
-import '../controller/Auth.dart';
+import 'package:india_pavilion/controller/Auth.dart';
+import 'package:india_pavilion/controller/Database.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -78,7 +80,7 @@ class _LoginPageState extends State<LoginPage>{
 
       try {
         userID =  await widget.auth.create(_email, _password);
-        //TODO Add Data to Users table
+        Database.createUser(userID, _name, _email, _phoneNumber);
         toLogin();
       } catch (e) {
         print(e);
@@ -201,7 +203,7 @@ class _LoginPageState extends State<LoginPage>{
                                   filled: true
                               ),
                               validator: (value) => value.isEmpty ? "Name is empty" : null,
-                              onSaved: (value) => _name = value
+                              onSaved: (value) => _name = trim(value)
                           )
                       ),
 
@@ -214,10 +216,12 @@ class _LoginPageState extends State<LoginPage>{
                                   filled: true
                               ),
                               validator: (value) {
-                                if(!isNumeric(value)){
+                                if(value.isEmpty){
+                                  return "Phone Number is empty";
+                                }else if(!isNumeric(value)){
                                   return "Phone Number should contain only numbers";
                                 }else if(value.length < 10){
-                                  return "This is not a phone number";
+                                  return "Phone Number should be 10 digits long";
                                 }else{
                                   return null;
                                 }
@@ -234,8 +238,12 @@ class _LoginPageState extends State<LoginPage>{
                                   fillColor: const Color(0xFFFFFFFF),
                                   filled: true
                               ),
-                              validator: (value) => value.isEmpty ? "Email is empty" : null,
-                              onSaved: (value) => _email = value
+                              validator: (value) {
+                                if(value.isEmpty){return "Email is empty";}
+                                bool good = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+                                return good ? null : "Email is not valid";
+                              },
+                              onSaved: (value) => _email = trim(value)
                           )
                       ),
 
@@ -258,7 +266,7 @@ class _LoginPageState extends State<LoginPage>{
                           padding:  EdgeInsets.fromLTRB( 0.0, 20.0, 0.0, 40.0),
                           child: new TextFormField(
                             decoration: new InputDecoration(
-                                labelText: " Retype Password",
+                                labelText: "Retype Password",
                                 fillColor: const Color(0xFFFFFFFF),
                                 filled: true
                             ),
